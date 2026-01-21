@@ -1,0 +1,541 @@
+/* --- load font (path matches your folders) --- */
+@font-face {
+  font-family: "PixdorTwo";
+  src: url("fonts/PixdorTwo.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* --- minimal reset --- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ===== KEY GOAL =====
+   - whole page DOES NOT scroll
+   - only middle panel scrolls
+   - sidebars are full height and DO NOT scroll
+*/
+html, body {
+  height: 100%;
+  overflow: hidden; /* stop page scroll */
+}
+
+/* --- page background (always there) --- */
+body {
+  font-family: "PixdorTwo", system-ui, sans-serif;
+  color: #624865;
+
+  background-image: url("images/background.gif");
+  background-repeat: repeat;
+  background-position: top left;
+  background-attachment: fixed;
+
+  /* outer spacing around the frame (replaces .frame margin so no page overflow) */
+  padding: 32px 0;
+}
+
+/* --- overall frame --- */
+.frame {
+  width: min(1100px, 92vw);
+  margin: 0 auto;                 /* no vertical margin */
+  height: calc(100vh - 64px);     /* viewport minus body padding */
+  overflow: hidden;               /* prevent any internal overflow from causing page scroll */
+
+  display: grid;
+  grid-template-columns: 220px 1fr 220px;
+  grid-template-rows: auto 1fr;   /* banner + panels row */
+  row-gap: 20px;                  /* space between banner and panels */
+  gap: 0;                         /* GLUED seams */
+  align-items: stretch;           /* panels fill the row height */
+}
+
+/* --- top banner --- */
+.banner {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  margin-bottom: 0;               /* IMPORTANT: spacing handled by row-gap */
+
+  padding: 18px 20px;
+  border: 3px solid rgba(0,0,0,0.2);
+  border-radius: 16px;
+  background: rgba(250, 245, 255, 0.85);
+  text-align: center;
+}
+
+/* --- shared panel look (left/middle/right) --- */
+.sidebar {
+  grid-row: 2;
+  height: 100%;
+  min-height: 0;
+
+  padding: 14px;
+  background: rgba(250, 245, 255, 0.85);
+  border: 3px solid rgba(0,0,0,0.2);
+
+  overflow: hidden; /* sidebars do NOT scroll */
+}
+
+/* --- LEFT panel: outer border, no right border (single seam line) --- */
+.frame > .sidebar:first-of-type {
+  border-right: 0;
+  border-radius: 16px 0 0 16px;
+}
+
+/* --- CENTER panel: scrollable area --- */
+.main {
+  grid-row: 2;
+  height: 100%;
+  min-height: 0;
+
+  border-top: 3px solid rgba(0,0,0,0.2);
+  border-bottom: 3px solid rgba(0,0,0,0.2);
+  border-left: 3px solid rgba(0,0,0,0.2);
+  border-right: 0;
+  border-radius: 0;
+  background: rgba(255, 255, 255, 0.85);
+
+  overflow-y: auto;   /* ONLY this scrolls */
+  overflow-x: hidden;
+  padding: 14px;
+}
+
+/* --- RIGHT panel: outer border, draws seam with center via LEFT edge --- */
+.frame > .sidebar:last-of-type {
+  border-radius: 0 16px 16px 0;
+}
+
+/* --- text styling --- */
+h1 { font-size: 2rem; margin-bottom: 10px; }
+h2 { font-size: 1.4rem; margin: 18px 0 8px; }
+p  { font-size: 1rem; line-height: 1.5; }
+
+/* --- sections --- */
+.main section {
+  padding: 12px 0;
+  border-bottom: 2px solid rgba(0,0,0,0.08);
+  max-width: none;
+  margin: 20px; /* FIXED */
+}
+.main section:last-child { border-bottom: 0; }
+
+/* --- Pet Clicker (left sidebar) --- */
+.pet-game {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.pet-btn {
+  display: grid;
+  gap: 6px;
+  width: 100%;
+  padding: 10px;
+  border: 3px solid rgba(0,0,0,0.2);
+  background: rgba(255,255,255,0.6);
+  cursor: pointer;
+  text-align: center;
+  font-family: inherit;
+  color: inherit;
+}
+
+.pet-btn img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 2px solid rgba(0,0,0,0.15);
+}
+
+.pet-label { font-size: 1rem; }
+.pet-count { font-size: 0.95rem; }
+
+/* --- right sidebar video sizing --- */
+.sidebar video {
+  display: block;
+  margin: 12px auto;
+  width: 90%;
+  height: auto;
+}
+
+/* --- day counter widget --- */
+.day-counter {
+  margin-top: 16px;
+  padding: 12px;
+  border: 3px solid rgba(0,0,0,0.2);
+  border-radius: 16px;
+  background: rgba(250, 245, 255, 0.85);
+}
+
+.day-counter .readouts > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 6px 0;
+}
+
+.day-counter span { font-size: 0.95rem; }
+
+.day-counter code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.95rem;
+  padding: 2px 6px;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.06);
+}
+
+.day-counter .controls {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+.day-counter button {
+  font-family: inherit;
+  font-size: 0.85rem;
+  padding: 4px 8px;
+  border-radius: 8px;
+  line-height: 1;
+}
+
+.day-counter .tiny {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+/* countdown layout */
+.countGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.countBox {
+  border: 2px solid rgba(0,0,0,0.15);
+  border-radius: 12px;
+  padding: 8px;
+  text-align: center;
+  background: rgba(255,255,255,0.6);
+}
+
+.num { font-size: 1.2rem; }
+.cap { font-size: 0.8rem; opacity: 0.85; }
+
+.countdown-widget { margin-top: 24px; }
+
+/* --- photo container/grid --- */
+.photo-container {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.photo-grid img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+}
+
+.photo-grid img:hover {
+  transform: scale(1.04);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* --- phones (stacked) --- */
+@media (max-width: 900px) {
+  html, body { overflow: auto; }  /* allow normal page scroll on small screens */
+
+  body { padding: 18px 0; }
+
+  .frame {
+    height: auto;
+    overflow: visible;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+    row-gap: 14px;
+  }
+
+  .sidebar, .main {
+    height: auto;
+    max-height: none;
+    border-radius: 16px;
+    border: 3px solid rgba(0,0,0,0.2);
+    overflow: visible;
+  }
+
+  .frame > .sidebar:first-of-type { border-right: 3px solid rgba(0,0,0,0.2); }
+  .main { border-right: 3px solid rgba(0,0,0,0.2); }
+}
+
+/* ===== HEIGHT = TALLEST COLUMN (LEFT). MIDDLE STRETCHES + SCROLLS ===== */
+
+/* Don't lock the page to viewport */
+html, body {
+  height: auto;
+  overflow: auto;
+}
+
+/* Frame is content-driven (tallest sidebar sets row height) */
+.frame {
+  height: auto;
+  overflow: visible;
+  grid-template-rows: auto auto; /* banner + panels row sized by content */
+  row-gap: 20px;                 /* replaces banner margin-bottom cleanly */
+  align-items: stretch;          /* key: make middle/right match tallest (left) */
+}
+
+/* Banner spacing handled by row-gap */
+.banner { margin-bottom: 0; }
+
+/* Put the three panels in row 2 */
+.frame > .sidebar,
+.main {
+  grid-row: 2;
+  align-self: stretch;  /* stretch each item to row height */
+  min-height: 0;        /* important for scroll containers */
+}
+
+/* Sidebars: allow scrolling if they ever overflow (no clipping) */
+.sidebar {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Middle: always stretches to row height; scroll if content is taller */
+.main {
+  height: 100%;         /* fill the row height */
+  overflow-y: auto;     /* scroll inside middle */
+  overflow-x: hidden;
+}
+
+/* Fix the invalid margin you had earlier */
+.main section { margin: 20px; }
+
+
+/* ===== LEFT DEFINES HEIGHT; MIDDLE SCROLLS; RIGHT MATCHES LEFT ===== */
+
+/* Let the page be normal height (do NOT use 100vh locks) */
+html, body { height: auto; overflow: auto; }
+
+/* IMPORTANT: prevent grid from forcing equal heights */
+.frame {
+  height: auto !important;
+  grid-template-rows: auto auto !important; /* banner + content */
+  align-items: start !important;            /* STOP stretching all columns */
+  row-gap: 20px;
+}
+
+/* Panels live in row 2 */
+.frame > .sidebar,
+.main { grid-row: 2; }
+
+/* LEFT sidebar: size to its own content (DO NOT stretch) */
+.frame > .sidebar:first-of-type {
+  align-self: start !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+/* RIGHT sidebar: stretch to match the row height (which is set by left) */
+.frame > .sidebar:last-of-type {
+  align-self: stretch !important;
+  height: 100% !important;
+  overflow: visible !important; /* no clipping */
+}
+
+/* MIDDLE: stretch to match left-defined height, and scroll internally */
+.main {
+  align-self: stretch !important;
+  height: 100% !important;
+  max-height: 100% !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  min-height: 0 !important;
+}
+
+/* Banner spacing handled by row-gap */
+.banner { margin-bottom: 0 !important; }
+
+/* Fix invalid margin */
+.main section { margin: 20px !important; }
+
+
+/* ===== CLEAN: ALL THREE MATCH TALLEST; MIDDLE SCROLLS ===== */
+
+/* Stop all the viewport-lock experiments */
+html, body {
+  height: auto;
+  overflow: auto;
+}
+
+/* Make the frame content-driven and let the row height be the tallest item */
+.frame {
+  height: auto !important;
+  overflow: visible !important;
+
+  grid-template-rows: auto auto !important; /* banner + panel row */
+  row-gap: 20px;
+  align-items: stretch !important;          /* KEY: equal heights */
+}
+
+/* remove banner bottom margin (row-gap handles it) */
+.banner { margin-bottom: 0 !important; }
+
+/* All 3 panels stretch to the row height (which equals tallest panel) */
+.frame > .sidebar,
+.main {
+  grid-row: 2;
+  align-self: stretch !important;
+  height: 100% !important;
+  min-height: 0; /* allows internal scrolling */
+}
+
+/* Only middle scrolls inside its equal-height box */
+.main {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+/* Sidebars do NOT scroll, but they also should not clip */
+.sidebar {
+  overflow: visible !important;
+}
+
+/* Fix invalid margin */
+.main section { margin: 20px !important; }
+
+/* ===== HARD RESET: make ALL 3 columns same height (tallest wins) ===== */
+
+/* Make sure the grid row stretches items (equal height columns) */
+.frame{
+  align-items: stretch !important;
+  grid-template-rows: auto auto !important; /* banner + panels row */
+}
+
+/* REMOVE any "left sidebar is special" behavior */
+.frame > .sidebar:first-of-type{
+  align-self: stretch !important;
+  height: 100% !important;
+  overflow: visible !important;
+}
+
+/* Force BOTH sidebars + main to stretch to the row height */
+.frame > .sidebar,
+.main{
+  grid-row: 2 !important;
+  align-self: stretch !important;
+  height: 100% !important;
+  min-height: 0 !important; /* allows .main internal scrolling */
+}
+
+/* Only middle scrolls (optional but matches what you wanted) */
+.main{
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+/* Sidebars do NOT scroll */
+.sidebar{
+  overflow: visible !important;
+}
+
+/* Banner spacing */
+.banner{ margin-bottom: 0 !important; }
+
+/* Fix your invalid margin */
+.main section{ margin: 20px !important; }
+
+/* ===== middle "pages" tabs ===== */
+.main-tabs{
+  position: sticky;
+  top: 0;
+  z-index: 5;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px 10px 12px;
+
+  background: rgba(255, 255, 255, 0.92);
+  border-bottom: 2px solid rgba(0,0,0,0.08);
+}
+
+.tab-btn{
+  font-family: inherit;
+  border: 2px solid rgba(0,0,0,0.2);
+  background: rgba(250, 245, 255, 0.85);
+  padding: 6px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.tab-btn.active{
+  transform: translateY(1px);
+  background: rgba(255,255,255,0.95);
+}
+
+/* hide all main sections by default */
+.main section{
+  display: none;
+}
+
+/* show ONLY the active one */
+.main section.active-section{
+  display: block;
+}
+
+/* ===== REMOVE ALL DIVIDER LINES IN MIDDLE ===== */
+
+.main section {
+  border-bottom: none !important;
+}
+
+/* If you ever used <hr> anywhere */
+.main hr {
+  display: none;
+}
+
+/* make videos follow the same grid rules as images */
+.photo-grid video {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+
+
+/* Boston sub-tabs */
+.subtabs{
+  display: flex;
+  gap: 8px;
+  margin: 10px 0 14px;
+}
+
+.subtab-btn{
+  font-family: inherit;
+  border: 2px solid rgba(0,0,0,0.2);
+  background: rgba(250,245,255,0.85);
+  padding: 6px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.subtab-btn.active{
+  background: rgba(255,255,255,0.95);
+  transform: translateY(1px);
+}
+
+.boston-page{ display: none; }
+.boston-page.active{ display: block; }

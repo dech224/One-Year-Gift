@@ -1,0 +1,362 @@
+<body>
+    <link rel="stylesheet" href="style.css">
+  <div class="frame">
+
+    <header class="banner">
+      <h1>Celebrating One Year Together</h1>
+      <p>Can't believe it's been a whole year, it feels like a lifetime</p>
+    </header>
+
+   <aside class="sidebar">
+  <h2>Pet Clicker</h2>
+  <p>Click em all</p>
+
+  <div class="pet-game">
+
+    <!-- Pet 4 -->
+    <button class="pet-btn" id="pet4" type="button">
+      <img id = "img4" src="images/pet4.jpeg" alt="Luna Dog">
+      <div class="pet-label">Luna (dog)</div>
+      <div class="pet-count">
+        Clicks: <span id="count4">0</span>
+      </div>
+      <div class="pet-level">
+        Level: <span id="level4">Baby</span>
+      </div>
+    </button>
+
+    <!-- Pet 1 -->
+    <button class="pet-btn" id="pet1" type="button">
+      <img id = "img1" src="images/pet1.jpeg" alt="Luna Cat">
+      <div class="pet-label">Luna (cat)</div>
+      <div class="pet-count">
+        Clicks: <span id="count1">0</span>
+      </div>
+      <div class="pet-level">
+        Level: <span id="level1">Baby</span>
+      </div>
+    </button>
+
+    <!-- Pet 2 -->
+    <button class="pet-btn" id="pet2" type="button">
+      <img id = "img2" src="images/pet2.jpeg" alt="Remmy">
+      <div class="pet-label">Remmy</div>
+      <div class="pet-count">
+        Clicks: <span id="count2">0</span>
+      </div>
+      <div class="pet-level">
+        Level: <span id="level2">Baby</span>
+      </div>
+    </button>
+
+    <!-- Pet 3 -->
+    <button class="pet-btn" id="pet3" type="button">
+      <img id = "img3" src="images/pet3.jpeg" alt="Daisy">
+      <div class="pet-label">Daisy</div>
+      <div class="pet-count">
+        Clicks: <span id="count3">0</span>
+      </div>
+      <div class="pet-level">
+        Level: <span id="level3">Baby</span>
+      </div>
+    </button>
+
+  </div>
+
+ <script>
+  const clicks = { 1: 0, 2: 0, 3: 0, 4: 0 };
+
+  function getStage(c) {
+    if (c < 20) return 0;
+    if (c < 50) return 1;
+    if (c < 150) return 2;
+    return 3;
+  }
+
+  const stageNames = ["Baby", "Adult", "Evolution 1", "FULLY EVOLVED"];
+
+  const petImages = {
+    1: ["images/pet1.jpeg", "images/pet1_adult.jpeg", "images/pet1_evo1.jpeg", "images/pet1_full.jpeg"],
+    2: ["images/pet2.jpeg", "images/pet2_adult.jpeg", "images/pet2_evo1.jpeg", "images/pet2_full.jpeg"],
+    3: ["images/pet3.jpeg", "images/pet3_adult.jpeg", "images/pet3_evo1.jpeg", "images/pet3_full.jpeg"],
+    4: ["images/pet4.jpeg", "images/pet4_adult.jpg", "images/pet4_evo1.jpg", "images/pet4_full.jpg"]
+  };
+
+  function updatePet(n) {
+    const stage = getStage(clicks[n]);
+    document.getElementById(`count${n}`).textContent = clicks[n];
+    document.getElementById(`level${n}`).textContent = stageNames[stage];
+    document.getElementById(`img${n}`).src = petImages[n][stage];
+  }
+
+  [1,2,3,4].forEach(n => {
+    document.getElementById(`pet${n}`).addEventListener("click", () => {
+      clicks[n]++;
+      updatePet(n);
+    });
+    updatePet(n);
+  });
+</script>
+
+
+</aside>
+
+
+
+    <main class="main">
+      <nav class="main-tabs">
+  <button class="tab-btn active" type="button" data-target="early">Early</button>
+  <button class="tab-btn" type="button" data-target="valentines">Valentines</button>
+  <button class="tab-btn" type="button" data-target="facetimes">Facetimes</button>
+  <button class="tab-btn" type="button" data-target="boston">Boston</button>
+  <button class="tab-btn" type="button" data-target="nyc">NYC</button>
+  <button class="tab-btn" type="button" data-target="favs">Favorites</button>
+</nav>
+
+      <section id="early">
+        <h2>Early Photos</h2>
+        <p>These photos are almost as old as you are</p>
+        <div class="photo-container">
+  <div class="photo-grid">
+    <img src="images/early1.jpg" alt="Early memory 1">
+    <img src="images/early2.jpeg" alt="Early memory 2">
+    <img src="images/early3.jpeg" alt="Early memory 3">
+    <img src="images/early4.jpeg" alt="Early memory 4">
+     <img src="images/early5.jpeg" alt="Early memory 4">
+      <img src="images/early6.jpeg" alt="Early memory 4">
+       <img src="images/early7.jpeg" alt="Early memory 4">
+        <img src="images/early8.jpeg" alt="Early memory 4">
+  </div>
+</div>
+      </section>
+
+      <section id="valentines">
+        <h2>Valentines Day Together</h2>
+        <p>Can't wait to spend it again with you this year</p>
+          <div class="photo-container">
+  <div class="photo-grid">
+    <img src="images/valentines (1).jpeg" alt="Early memory 1">
+    <img src="images/valentines (2).jpeg" alt="Early memory 2">
+    <img src="images/valentines (3).jpeg" alt="Early memory 3">
+    <img src="images/valentines (4).jpeg" alt="Early memory 4">
+    <img src="images/valentines (5).jpeg" alt="Early memory 1">
+    <img src="images/valentines (6).jpeg" alt="Early memory 2">
+    <img src="images/valentines (7).jpeg" alt="Early memory 3">
+    <img src="images/valentines (8).jpeg" alt="Early memory 4">
+  </div>
+</div>
+      </section>
+
+      <section id="facetimes">
+        <h2>Facetimes Together</h2>
+        <p>Long distance has nothing on us</p>
+          <div class="photo-container">
+  <div class="photo-grid">
+    <img src="images/facetimes (1).jpeg" alt="Early memory 1">
+    <img src="images/facetimes (1).PNG" alt="Early memory 2">
+    <img src="images/facetimes (2).jpeg" alt="Early memory 3">
+    <img src="images/facetimes (2).PNG" alt="Early memory 4">
+       <img src="images/facetimes (3).jpeg" alt="Early memory 1">
+    <img src="images/facetimes (4).jpeg" alt="Early memory 2">
+    <img src="images/facetimes (5).jpeg" alt="Early memory 3">
+    <img src="images/facetimes (6).jpeg" alt="Early memory 4">
+  </div>
+</div>
+      </section>
+
+<section id="boston">
+  <h2>Boston</h2>
+  <p>Bawston</p>
+
+  <!-- Boston sub-tabs -->
+  <div class="subtabs">
+    <button class="subtab-btn active" type="button" data-sub="boston1">Part 1</button>
+    <button class="subtab-btn" type="button" data-sub="boston2">Part 2</button>
+  </div>
+
+  <!-- Part 1 -->
+  <div class="boston-page active" id="boston1">
+    <div class="photo-container">
+      <div class="photo-grid">
+        <!-- PUT YOUR BOSTON PART 1 MEDIA HERE -->
+        <img src="images/boston (1).jpeg" alt="Boston 1">
+        <img src="images/boston (1).JPG" alt="Boston 2">
+        <img src="images/bostons (1).JPG" alt="Boston 3">
+        <img src="images/bostons (2).JPG" alt="Boston 4">
+        <img src="images/bostons (3).JPG" alt="Boston 5">
+        <img src="images/bostons (4).JPG" alt="Boston 6">
+        <img src="images/bostons (5).JPG" alt="Boston 7">
+        <img src="images/bostons (6).JPG" alt="Boston 8">
+      </div>
+    </div>
+  </div>
+
+  <!-- Part 2 -->
+  <div class="boston-page" id="boston2">
+    <div class="photo-container">
+      <div class="photo-grid">
+        <!-- PUT YOUR BOSTON PART 2 MEDIA HERE -->
+        <img src="images/boston (2).jpeg" alt="Boston 9">
+        <img src="images/boston (2).JPG" alt="Boston 10">
+        <img src="images/boston (3).jpeg" alt="Boston 11">
+        <img src="images/boston (3).JPG" alt="Boston 12">
+        <img src="images/boston (4).jpeg" alt="Boston 13">
+        <img src="images/boston (4).JPG" alt="Boston 14">
+        <img src="images/boston (5).JPG" alt="Boston 15">
+
+        <video class="grid-media" autoplay muted loop playsinline preload="auto">
+          <source src="images/boston (1).MP4" type="video/mp4">
+        </video>
+
+        <img src="images/boston (6).JPG" alt="Boston 16">
+        <img src="images/boston (7).JPG" alt="Boston 17">
+      </div>
+    </div>
+  </div>
+</section>
+
+
+      <section id="nyc">
+        <h2>NYC</h2>
+        <p>I'm walkin here</p>
+          <div class="photo-container">
+  <div class="photo-grid">
+    <img src="images/NYC (1).jpeg" alt="Early memory 1">
+     <img src="images/NYC (2).jpeg" alt="Early memory 1">
+      <img src="images/NYC (3).jpeg" alt="Early memory 1">
+       <img src="images/NYC (4).jpeg" alt="Early memory 1">
+        <img src="images/NYC (5).jpeg" alt="Early memory 1">
+         <img src="images/NYC (6).jpeg" alt="Early memory 1">
+          <img src="images/NYC (7).jpeg" alt="Early memory 1">
+           <img src="images/NYC (8).jpeg" alt="Early memory 1">
+ 
+  </div>
+</div>
+      </section>
+
+      <section id="favs">
+        <h2>My favorites</h2>
+        
+          <div class="photo-container">
+  <div class="photo-grid">
+    <img src="images/favs (1).JPEG" alt="Early memory 1">
+    <img src="images/favs (1).JPG" alt="Early memory 2">
+    <img src="images/favs (2).JPEG" alt="Early memory 3">
+    <img src="images/favs (2).JPG" alt="Early memory 4">
+     <img src="images/favs (3).JPG" alt="Early memory 3">
+    <img src="images/favs (4).JPG" alt="Early memory 4">
+      <img src="images/last.jpeg" alt="Early memory 4">
+       <img src="images/last.JPG" alt="Early memory 4">
+  </div>
+</div>
+      </section>
+    </main>
+
+    <aside class="sidebar">
+  
+
+  <video autoplay muted loop playsinline preload = 'auto'>
+    <source src="images/video.mp4" type="video/mp4">
+    
+    Your browser does not support the video tag.
+  </video>
+
+  <div class="day-counter">
+  <h2>365 Days of having to deal with me</h2>
+
+  <div class="readouts">
+    <div><span>DEC</span> <code id="dec">0</code></div>
+    <div><span>HEX</span> <code id="hex">0x0</code></div>
+    <div><span>BIN</span> <code id="bin">0b0</code></div>
+  </div>
+
+  <div class="controls">
+    <button id="startBtn" type="button">Start</button>
+    <button id="pauseBtn" type="button">Pause</button>
+    <button id="resetBtn" type="button">Reset</button>
+  </div>
+
+  <p class="tiny">1 second = 1 day.</p>
+</div>
+
+<script src="counter.js"></script>
+
+<div class="countdown-widget">
+  <h3>Countdown to 2 Years</h3>
+
+  <div class="countGrid">
+    <div class="countBox">
+      <div id="cdDays" class="num">0</div>
+      <div class="cap">days</div>
+    </div>
+    <div class="countBox">
+      <div id="cdHours" class="num">0</div>
+      <div class="cap">hrs</div>
+    </div>
+    <div class="countBox">
+      <div id="cdMins" class="num">0</div>
+      <div class="cap">min</div>
+    </div>
+    <div class="countBox">
+      <div id="cdSecs" class="num">0</div>
+      <div class="cap">sec</div>
+    </div>
+  </div>
+
+ 
+</div>
+
+<script src="countdown.js"></script>
+
+
+</aside>
+
+  </div>
+
+
+
+  <script>
+
+</script>
+
+<script>
+  const tabButtons = document.querySelectorAll(".tab-btn");
+  const sections = document.querySelectorAll(".main section");
+
+  function showSection(id) {
+    sections.forEach(s => s.classList.toggle("active-section", s.id === id));
+    tabButtons.forEach(b => b.classList.toggle("active", b.dataset.target === id));
+  }
+
+  tabButtons.forEach(btn => {
+    btn.addEventListener("click", () => showSection(btn.dataset.target));
+  });
+
+  // default page
+  showSection("early");
+</script>
+
+
+<script>
+  // Boston Part 1 / Part 2 toggles
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest(".subtab-btn");
+    if (!btn) return;
+
+    const section = btn.closest("#boston");
+    if (!section) return;
+
+    const targetId = btn.dataset.sub;
+
+    section.querySelectorAll(".subtab-btn").forEach(b =>
+      b.classList.toggle("active", b === btn)
+    );
+
+    section.querySelectorAll(".boston-page").forEach(p =>
+      p.classList.toggle("active", p.id === targetId)
+    );
+  });
+</script>
+
+
+</body>
